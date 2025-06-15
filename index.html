@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铭记历史 珍爱和平 - 南京大屠杀遇难同胞纪念网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.unsplash.com/photo-1547981609-4b6bf2a6d785?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #8B0000;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            padding: 20px;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.7);
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: #d3d3d3;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        .date {
+            font-size: 2.2rem;
+            color: #8B0000;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .count {
+            font-size: 3.5rem;
+            color: #fff;
+            background: rgba(139, 0, 0, 0.7);
+            padding: 10px 30px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 导航栏 */
+        nav {
+            background-color: rgba(20, 20, 20, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+        
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #8B0000;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* 内容区 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #8B0000;
+        }
+        
+        .section-content {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        /* 照片墙 */
+        .photo-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+        
+        .photo-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(70%);
+            transition: filter 0.3s ease;
+        }
+        
+        .photo-item:hover img {
+            filter: grayscale(30%);
+        }
+        
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            color: #fff;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+        
+        /* 时间线 */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 50px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #8B0000;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #8B0000;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        /* 悼念区 */
+        .memorial {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1518834107812-67b0b7c58434?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .candle-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .candle {
+            width: 80px;
+            height: 150px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .candle:hover {
+            transform: translateY(-10px);
+        }
+        
+        .candle-body {
+            width: 30px;
+            height: 120px;
+            background: linear-gradient(to right, #d3d3d3, #f0f0f0, #d3d3d3);
+            margin: 0 auto;
+            border-radius: 3px;
+        }
+        
+        .candle-flame {
+            width: 15px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ff9900, #ff3300, #660000);
+            margin: 0 auto;
+            border-radius: 50% 50% 20% 20%;
+            position: relative;
+            animation: flicker 1.5s infinite alternate;
+            box-shadow: 0 0 20px #ff6600, 0 0 40px #ff3300;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .candle.active .candle-flame {
+            opacity: 1;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.1); }
+        }
+        
+        .memorial-text {
+            max-width: 800px;
+            margin: 40px auto;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            background: rgba(30, 30, 30, 0.7);
+            padding: 30px;
+            border-radius: 5px;
+            border-left: 4px solid #8B0000;
+        }
+        
+        /* 和平祈愿 */
+        .wishes {
+            background-color: #1a1a1a;
+            padding: 80px 0;
+        }
+        
+        .wish-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background: #8B0000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        button:hover {
+            background: #a00;
+        }
+        
+        .wish-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+        
+        .wish-card {
+            background: rgba(40, 40, 40, 0.7);
+            padding: 25px;
+            border-radius: 5px;
+            border-left: 4px solid #8B0000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wish-author {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .wish-content {
+            line-height: 1.6;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #0a0a0a;
+            padding: 50px 0 30px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+        
+        .quote {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #d3d3d3;
+            padding: 0 20px;
+        }
+        
+        .copyright {
+            color: #666;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .count {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                margin: 5px;
+                font-size: 0.9rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <div class="header-content">
+            <h1>南京大屠杀遇难同胞纪念馆</h1>
+            <div class="subtitle">铭记历史 珍爱和平 勿忘国耻 振兴中华</div>
+            <div class="date">1937年12月13日</div>
+            <div class="count">300,000</div>
+            <p>南京大屠杀遇难同胞人数</p>
+        </div>
+    </header>
+    
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="#history" class="nav-link active">历史背景</a>
+            <a href="#timeline" class="nav-link">时间线</a>
+            <a href="#photos" class="nav-link">历史照片</a>
+            <a href="#memorial" class="nav-link">悼念同胞</a>
+            <a href="#wishes" class="nav-link">和平祈愿</a>
+            <a href="#resources" class="nav-link">教育资源</a>
+        </div>
+    </nav>
+    
+    <!-- 历史背景 -->
+    <section id="history" class="container">
+        <h2 class="section-title">历史背景</h2>
+        <div class="section-content">
+            <p>南京大屠杀是1937年12月至1938年1月期间，侵华日军在南京及附近地区进行的有组织、有计划、有预谋的大规模屠杀、强奸、纵火、抢劫等战争罪行与反人类罪行。在暴行最猖獗的六周内，超过30万中国平民和战俘被日军杀害，约2万中国妇女遭日军奸淫，南京城的三分之一被日军纵火烧毁。</p>
+            <p>2014年2月27日，中国十二届全国人大常委会第七次会议通过决定，将每年12月13日设立为南京大屠杀死难者国家公祭日。2015年10月9日，《南京大屠杀档案》正式列入《世界记忆名录》。</p>
+            <p>南京大屠杀是中华民族历史上最黑暗的一页，是人类文明史上最惨痛的悲剧之一。今天我们纪念这段历史，不是为了延续仇恨，而是为了铭记教训，珍爱和平，开创未来。</p>
+        </div>
+    </section>
+    
+    <!-- 时间线 -->
+    <section id="timeline" class="container">
+        <h2 class="section-title">历史时间线</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1937年7月7日</div>
+                    <h3 class="timeline-title">卢沟桥事变</h3>
+                    <p>日军在北平西南卢沟桥附近演习时，借口一名士兵"失踪"，要求进入宛平县城搜查，遭到中国守军拒绝后，炮轰宛平城，发动全面侵华战争。</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1937年8月13日</div>
+                    <h3 class="timeline-title">淞沪会战</h3>
+                    <p>中国军队在上海与日军展开大规模会战，虽然中国军队英勇抵抗，但最终因装备和火力差距而失利，上海于11月12日沦陷。</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1937年12月1日</div>
+                    <h3 class="timeline-title">南京保卫战</h3>
+                    <p>日军下达进攻南京的命令，南京保卫战开始。中国守军进行了顽强抵抗，但终因实力悬殊，12月13日南京沦陷。</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1937年12月13日</div>
+                    <h3 class="timeline-title">南京沦陷与大屠杀开始</h3>
+                    <p>日军攻入南京城，开始了长达六周的大规模屠杀。遇难人数超过30万人，史称"南京大屠杀"。</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1938年1月</div>
+                    <h3 class="timeline-title">暴行持续</h3>
+                    <p>日军在南京的暴行持续进行，包括集体屠杀、强奸、纵火、抢劫等。国际安全区也无法完全保护平民安全。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 历史照片 -->
+    <section id="photos" class="container">
+        <h2 class="section-title">历史照片</h2>
+        <div class="photo-wall">
+            <div class="photo-item">
+			  <img src="微信图片_20250615224516.jpg" alt="历史照片" width="324" height="300"/>
+
+			<div class="photo-caption">南京大屠杀期间的历史影像记录</div>
+            </div>
+            <div class="photo-item">
+               <img src="微信图片_20250615224814.jpg" width="932" height="1240" alt=""/>
+<div class="photo-caption">南京大屠杀幸存者讲述历史</div>
+            </div>
+            <div class="photo-item">
+                <img src="微信图片_20250615224828.jpg" width="1279" height="1706" alt=""/>
+<div class="photo-caption">南京大屠杀纪念馆内部展品</div>
+            </div>
+            <div class="photo-item">
+			  <img src="微信图片_20250615224840.jpg" width="400" height="500" alt=""/>
+<div class="photo-caption">南京大屠杀期间的国际安全区</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 悼念区 -->
+    <section id="memorial" class="memorial">
+        <div class="container">
+            <h2 class="section-title">悼念遇难同胞</h2>
+            <div class="candle-area">
+                <div class="candle" onclick="lightCandle(this)">
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="lightCandle(this)">
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="lightCandle(this)">
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="lightCandle(this)">
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="lightCandle(this)">
+                    <div class="candle-body"></div>
+                    <div class="candle-flame"></div>
+                </div>
+            </div>
+            
+            <div class="memorial-text">
+                               <p>今天，我们点燃烛光，悼念在南京大屠杀中遇难的30万同胞。每一支烛光代表着一个逝去的生命，每一缕微光诉说着一段被暴力夺走的人生。</p>
+                <p>我们铭记这段历史，不是为了延续仇恨，而是为了让悲剧不再重演，让和平永驻人间。历史是最好的教科书，也是最好的清醒剂。</p>
+                <p>让我们共同宣誓：铭记历史，珍爱和平，勿忘国耻，振兴中华！</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 和平祈愿 -->
+    <section id="wishes" class="wishes">
+        <div class="container">
+            <h2 class="section-title">和平祈愿</h2>
+            <div class="wish-form">
+                <div class="form-group">
+                    <label for="name">您的姓名</label>
+                    <input type="text" id="name" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="message">和平祈愿</label>
+                    <textarea id="message" placeholder="请写下您的和平寄语..."></textarea>
+                </div>
+                <button onclick="submitWish()">提交祈愿</button>
+            </div>
+            
+            <div class="wish-wall">
+                <div class="wish-card">
+                    <div class="wish-author">张涵语</div>
+                    <div class="wish-content">愿世界和平永驻，愿悲剧不再重演。铭记历史，珍爱和平。</div>
+                </div>
+                <div class="wish-card">
+                    <div class="wish-author">李俞娟</div>
+                    <div class="wish-content">历史不能忘记，和平需要守护。愿逝者安息，愿生者坚强。</div>
+                </div>
+                <div class="wish-card">
+                    <div class="wish-author">曹芷嘉</div>
+                    <div class="wish-content">以史为鉴，开创未来。愿人类远离战争，共享和平。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 教育资源 -->
+    <section id="resources" class="container">
+        <h2 class="section-title">教育资源</h2>
+        <div class="section-content">
+            <h3>推荐阅读</h3>
+            <ul>
+                <li>《南京暴行：被遗忘的大屠杀》 - 张纯如</li>
+                <li>《拉贝日记》 - 约翰·拉贝</li>
+                <li>《南京大屠杀全纪实》 - 何建明</li>
+                <li>《南京安魂曲》 - 哈金</li>
+            </ul>
+            
+            <h3>纪录片</h3>
+            <ul>
+                <li>《南京》- 比尔·古登泰格、丹·史度曼</li>
+                <li>《1937南京记忆》- 中央电视台</li>
+                <li>《张纯如：南京大屠杀》- 安妮·皮克、比尔·斯巴菲克</li>
+            </ul>
+            
+            <h3>纪念馆信息</h3>
+            <p>侵华日军南京大屠杀遇难同胞纪念馆位于南京市建邺区水西门大街418号，是中国唯一一座有关侵华日军南京大屠杀的专史陈列馆及国家公祭日主办地。</p>
+            <p>开放时间：周二至周日 8:30-16:30（周一闭馆）</p>
+            <p>地址：江苏省南京市建邺区水西门大街418号</p>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="quote">
+            "可以宽恕，但不可以忘却。"<br>
+            —— 约翰·拉贝
+        </div>
+        <div class="copyright">
+            &copy; 2023 南京大屠杀遇难同胞纪念网站 | 铭记历史 珍爱和平
+        </div>
+    </footer>
+    
+    <script>
+        // 点烛悼念功能
+        function lightCandle(candle) {
+            candle.classList.toggle('active');
+        }
+        
+        // 提交祈愿功能
+        function submitWish() {
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !message) {
+                alert('请填写姓名和祈愿内容');
+                return;
+            }
+            
+            const wishWall = document.querySelector('.wish-wall');
+            const newWish = document.createElement('div');
+            newWish.className = 'wish-card';
+            newWish.innerHTML = `
+                <div class="wish-author">${name}</div>
+                <div class="wish-content">${message}</div>
+            `;
+            
+            wishWall.insertBefore(newWish, wishWall.firstChild);
+            
+            // 清空表单
+            document.getElementById('name').value = '';
+            document.getElementById('message').value = '';
+            
+            alert('您的祈愿已提交，感谢您为和平发声！');
+        }
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                nav.style.backgroundColor = 'rgba(20, 20, 20, 0.95)';
+            }
+        });
+        
+        // 自动点亮一支蜡烛
+        setTimeout(() => {
+            const firstCandle = document.querySelector('.candle');
+            if (firstCandle) {
+                firstCandle.classList.add('active');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
